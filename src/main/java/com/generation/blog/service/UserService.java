@@ -72,4 +72,15 @@ public class UserService
         return new TokenDTO(jwtService.generateToken(user));
     }
 
+    public UserDTO findByUsername(String username) {
+        User user = userRepository.findByUsername(username)
+                .orElseThrow(() -> new EntityNotFoundException("User not found with username:" + username));
+        return userMapper.toDTO(user);
+    }
+
+    public List<UserDTO> findByUsernameContaining(String username) {
+        // TODO Auto-generated method stub
+        throw new UnsupportedOperationException("Unimplemented method 'findByUsernameContaining'");
+    }
+
 }

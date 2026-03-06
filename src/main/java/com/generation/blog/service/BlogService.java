@@ -42,4 +42,8 @@ public class BlogService
     public void deleteById(Integer id) {
         repository.deleteById(id);
     }
+
+    public List<BlogDTO> findByTitleContaining(String title) {
+        return mapper.toDTOs(repository.findByTitleContaining(title));
+    }
 }

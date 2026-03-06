@@ -42,4 +42,9 @@ public class BlogPostService
     public void deleteById(Integer id) {
         repository.deleteById(id);
     }
+
+    public List<BlogPostDTO> findByTitleContaining(String title) {
+        // TODO Auto-generated method stub
+        throw new UnsupportedOperationException("Unimplemented method 'findByTitleContaining'");
+    }
 }

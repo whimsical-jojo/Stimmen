@@ -1,5 +1,7 @@
 package com.generation.blog.api;
 
+import java.util.List;
+
 import org.hibernate.exception.ConstraintViolationException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -11,13 +13,14 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.generation.blog.dto.BlogPostDTO;
 import com.generation.blog.service.BlogPostService;
 
 @RestController
-@RequestMapping("/blog/post")
+@RequestMapping("/api/blog/{blogId}/posts")
 @CrossOrigin(origins = "http://localhost:4200")
 public class BlogPostAPI
 {
@@ -54,5 +57,10 @@ public class BlogPostAPI
     @GetMapping("/{id}")
     public BlogPostDTO findById(@PathVariable int id) {
         return service.findById(id);
+    }
+
+    @GetMapping
+    public List<BlogPostDTO> findByTitleContaining(@RequestParam String title) {
+        return service.findByTitleContaining(title);
     }
 }

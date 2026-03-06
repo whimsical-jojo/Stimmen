@@ -1,5 +1,7 @@
 package com.generation.blog.api;
 
+import java.util.List;
+
 import org.hibernate.exception.ConstraintViolationException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -11,19 +13,28 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.generation.blog.dto.BlogDTO;
 import com.generation.blog.service.BlogService;
 
+/**
+ * API for the blogs
+ */
 @RestController
-@RequestMapping("/blog")
+@RequestMapping("api/user/{userId}/blog")
 @CrossOrigin(origins = "http://localhost:4200")
 public class BlogAPI
 {
 	@Autowired
 	BlogService service;
 	
+    /**
+     * Create a new blog
+     * @param dto
+     * @return
+     */
 	@PostMapping
     public ResponseEntity<Object> save(@RequestBody BlogDTO dto) {
         try {
@@ -34,6 +45,12 @@ public class BlogAPI
         }
     }
 
+    /**
+     * Update the blog with this id
+     * @param id
+     * @param dto
+     * @return
+     */
     @PutMapping("/{id}")
     public ResponseEntity<Object> update(@PathVariable int id, @RequestBody BlogDTO dto) {
         try {
@@ -45,14 +62,29 @@ public class BlogAPI
         }
     }
 
+    /**
+     * Delete the blog with this id
+     * @param id
+     * @return
+     */
     @DeleteMapping("/{id}")
     public ResponseEntity<Void> delete(@PathVariable int id) {
         service.deleteById(id);
         return ResponseEntity.noContent().build();
     }
 
+    /**
+     * Get the blog with this id
+     * @param id
+     * @return
+     */
     @GetMapping("/{id}")
     public BlogDTO findById(@PathVariable int id) {
         return service.findById(id);
+    }
+
+    @GetMapping
+    public List<BlogDTO> findByTitleContaining(@RequestParam String title) {
+        return service.findByTitleContaining(title);
     }
 }
