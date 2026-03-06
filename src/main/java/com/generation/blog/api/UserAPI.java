@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.generation.blog.dto.UserDTO;
@@ -58,14 +59,14 @@ public class UserAPI {
         return service.findById(id);
     }
 
-    @GetMapping("/{username}")
+    @GetMapping("/search/{username}")
     public UserDTO findByUsername(@PathVariable String username) {
         return service.findByUsername(username);
     }
     
     @GetMapping
-    public List<UserDTO> findByUsernameContaining(@PathVariable String username) {
-        return service.findByUsernameContaining(username);
+    public List<UserDTO> findByUsernameContaining(@RequestParam String usernamePart) {
+        return service.findByUsernameContainingIgnoreCase(usernamePart);
     }
 
 }
