@@ -78,9 +78,8 @@ public class UserService
         return userMapper.toDTO(user);
     }
 
-    public List<UserDTO> findByUsernameContaining(String username) {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'findByUsernameContaining'");
+    public List<UserDTO> findByUsernameContainingIgnoreCase(String usernamePart) {
+        return userMapper.toDTOs(userRepository.findByUsernameContainingIgnoreCase(usernamePart));
     }
 
 }
