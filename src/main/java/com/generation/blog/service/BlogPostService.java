@@ -33,8 +33,11 @@ public class BlogPostService
     }
 
     public BlogPostDTO save(@Valid BlogPostDTO blogPostDTO) {
-        
+        //TODO Maybe it's better to have a separate method for posting, and this one can also serve to save sketches.
         BlogPost blogPost = mapper.toEntity(blogPostDTO);
+        if (blogPost.getPublishedOn() == null) {
+            blogPost.setPublishedOn(java.time.LocalDateTime.now());
+        }
         blogPost = repository.save(blogPost);
         return mapper.toDTO(blogPost);
     }

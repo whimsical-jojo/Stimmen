@@ -5,7 +5,7 @@ import lombok.Setter;
 
 @Getter
 @Setter
-public class BloggerDTO extends UserDTO
+public class BloggerDTO extends WebUserDTO
 {
 	private String nickName;
 }

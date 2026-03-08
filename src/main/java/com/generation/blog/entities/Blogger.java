@@ -9,7 +9,7 @@ import lombok.Data;
  */
 @Data
 @Entity
-public class Blogger extends User {
+public class Blogger extends WebUser {
 
     private String nickName;
 

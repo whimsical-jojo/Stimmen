@@ -20,7 +20,7 @@ import com.generation.blog.dto.BlogPostDTO;
 import com.generation.blog.service.BlogPostService;
 
 @RestController
-@RequestMapping("/api/blog/{blogId}/posts")
+@RequestMapping("/api/posts")
 @CrossOrigin(origins = "http://localhost:4200")
 public class BlogPostAPI
 {

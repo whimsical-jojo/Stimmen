@@ -9,16 +9,17 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 
 import com.generation.blog.dto.AdminDTO;
-import com.generation.blog.repository.UserRepository;
-import com.generation.blog.service.UserService;
+import com.generation.blog.repository.WebUserRepository;
+import com.generation.blog.service.AccountManagementService;
+import com.generation.blog.service.WebUserService;
 
 //Works and adds a Wajojo evil serious and not at all whimsical admin
 @SpringBootTest
-class AdminRepoTest
+class AccountCreationTest
 {
 
 	@Autowired
-	UserService service;
+	AccountManagementService service;
 	
 	@Test
 	void test()

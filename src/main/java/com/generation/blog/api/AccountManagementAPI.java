@@ -1,13 +1,10 @@
 package com.generation.blog.api;
 
-import java.util.List;
-
 import org.hibernate.exception.ConstraintViolationException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
-import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
@@ -15,21 +12,32 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.generation.blog.dto.UserDTO;
-import com.generation.blog.service.UserService;
+import com.generation.blog.dto.LoginDTO;
+import com.generation.blog.dto.TokenDTO;
+import com.generation.blog.dto.WebUserDTO;
+import com.generation.blog.service.AccountManagementService;
 
+/**
+ * AccountManagementAPI so users can manage their own accounts
+ * TODO add security stuff?
+ */
 @RestController
-@RequestMapping("/user")
+@RequestMapping("/api/account")
 @CrossOrigin(origins = "http://localhost:4200")
-public class UserAPI {
+public class AccountManagementAPI
+{
+	@Autowired
+	AccountManagementService service;
+	
+	@PostMapping("/login")
+    public TokenDTO login(@RequestBody LoginDTO loginDTO) {
+        return service.login(loginDTO);
+    }
 
-    @Autowired
-    private UserService service;
-  
     @PostMapping
-    public ResponseEntity<Object> save(@RequestBody UserDTO dto) {
+    public ResponseEntity<Object> save(@RequestBody WebUserDTO dto) {
         try {
-            dto = (UserDTO) service.save(dto);
+            dto = (WebUserDTO) service.save(dto);
             return ResponseEntity.status(201).body(dto);
         } catch (ConstraintViolationException e) {
             return ResponseEntity.status(400).body(e.getMessage());
@@ -37,10 +45,10 @@ public class UserAPI {
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<Object> update(@PathVariable int id, @RequestBody UserDTO dto) {
+    public ResponseEntity<Object> update(@PathVariable int id, @RequestBody WebUserDTO dto) {
         try {
             dto.setId(id);
-            dto = (UserDTO) service.save(dto);
+            dto = (WebUserDTO) service.save(dto);
             return ResponseEntity.ok(dto);
         } catch (ConstraintViolationException e) {
             return ResponseEntity.status(400).body(e.getMessage());
@@ -52,24 +60,4 @@ public class UserAPI {
         service.deleteById(id);
         return ResponseEntity.noContent().build();
     }
-
-    @GetMapping("/{id}")
-    public UserDTO findById(@PathVariable int id) {
-        return service.findById(id);
-    }
-
-    @GetMapping("/{username}")
-    public UserDTO findByUsername(@PathVariable String username) {
-        return service.findByUsername(username);
-    }
-    
-    @GetMapping
-    public List<UserDTO> findByUsernameContaining(@PathVariable String username) {
-        return service.findByUsernameContaining(username);
-    }
-
 }
-
-
-
-

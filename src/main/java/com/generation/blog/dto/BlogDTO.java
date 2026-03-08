@@ -14,7 +14,7 @@ public class BlogDTO
     private String title;
     private String description;
 
-    private UserDTO author;
+    private int authorId;
 
     public List<BlogPostDTO> posts;
 }

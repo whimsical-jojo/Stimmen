@@ -23,7 +23,7 @@ import com.generation.blog.service.BlogService;
  * API for the blogs
  */
 @RestController
-@RequestMapping("api/user/{userId}/blog")
+@RequestMapping("api/blogs")
 @CrossOrigin(origins = "http://localhost:4200")
 public class BlogAPI
 {
@@ -83,6 +83,11 @@ public class BlogAPI
         return service.findById(id);
     }
 
+    /**
+     * Search for a blog containing this in the title
+     * @param title
+     * @return
+     */
     @GetMapping
     public List<BlogDTO> findByTitleContaining(@RequestParam String title) {
         return service.findByTitleContaining(title);

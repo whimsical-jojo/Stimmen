@@ -1,6 +1,6 @@
 package com.generation.blog.security;
 
-import com.generation.blog.entities.User;
+import com.generation.blog.entities.WebUser;
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
@@ -30,7 +30,7 @@ public class JwtService {
     // e alla fine contiene una firma
     // te ne freghi della firma, te ne freghi dell'intestazione
 
-    public String generateToken(User user) {
+    public String generateToken(WebUser user) {
         Map<String, Object> claims = new HashMap<>();
         claims.put("id", user.getId());
         claims.put("firstName", user.getFirstName());

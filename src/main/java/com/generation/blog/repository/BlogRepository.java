@@ -10,6 +10,7 @@ import com.generation.blog.entities.Blog;
 @Repository
 public interface BlogRepository extends JpaRepository<Blog, Integer>
 {
+    //TODO add tags and comments
 
     List<Blog> findByTitleContaining(String title);
 

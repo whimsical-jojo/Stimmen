@@ -7,7 +7,7 @@ import lombok.Setter;
 
 @Getter
 @Setter
-public class AdminDTO extends UserDTO
+public class AdminDTO extends WebUserDTO
 {
 	LocalDate lastPasswordChange;
 	

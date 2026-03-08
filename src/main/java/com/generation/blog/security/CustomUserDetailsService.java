@@ -7,9 +7,8 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 
-import com.generation.blog.entities.User;
-import com.generation.blog.repository.UserRepository;
-import com.generation.blog.repository.BloggerRepository;
+import com.generation.blog.entities.WebUser;
+import com.generation.blog.repository.WebUserRepository;
 
 import jakarta.persistence.EntityNotFoundException;
 
@@ -17,15 +16,12 @@ import jakarta.persistence.EntityNotFoundException;
 public class CustomUserDetailsService implements UserDetailsService {
 
     @Autowired
-    UserRepository userRepository;
+    WebUserRepository userRepository;
     
-    @Autowired
-    BloggerRepository bloggerRepository;
-	
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
     	//Only one query, as it should be
-    	User user = userRepository.findByUsername(username)
+    	WebUser user = userRepository.findByUsername(username)
                 .orElseThrow(() -> new EntityNotFoundException("User not found"));
         
         return org.springframework.security.core.userdetails.User.builder()

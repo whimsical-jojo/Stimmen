@@ -9,7 +9,7 @@ import lombok.Data;
 
 @Data
 @Entity
-public class Admin extends User
+public class Admin extends WebUser
 {
 	@NotNull
 	@PastOrPresent
