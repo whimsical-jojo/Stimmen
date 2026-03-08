@@ -15,4 +15,5 @@ public class BlogPostDTO
     private String content;
     private LocalDateTime publishedOn;
     private int blogId;
+    private int authorId;
 }

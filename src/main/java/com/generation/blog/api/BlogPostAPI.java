@@ -27,6 +27,11 @@ public class BlogPostAPI
 	@Autowired
 	BlogPostService service;
 	
+    /**
+     * Save a new post to a blog
+     * @param dto
+     * @return
+     */
 	@PostMapping
     public ResponseEntity<Object> save(@RequestBody BlogPostDTO dto) {
         try {
@@ -37,6 +42,12 @@ public class BlogPostAPI
         }
     }
 
+    /**
+     * Modify an existing post
+     * @param id
+     * @param dto
+     * @return
+     */
     @PutMapping("/{id}")
     public ResponseEntity<Object> update(@PathVariable int id, @RequestBody BlogPostDTO dto) {
         try {
@@ -62,5 +73,23 @@ public class BlogPostAPI
     @GetMapping
     public List<BlogPostDTO> findByTitleContaining(@RequestParam String title) {
         return service.findByTitleContaining(title);
+    }
+
+    /**
+     * Can be useful for maybe giving an overview of an user, even if they manage multiple blogs
+     * @param userId
+     * @return userPosts
+     */
+    @GetMapping("/user/{userId}")
+    public String findPostsByAuthor(@PathVariable int userId) {
+        //TODO implement this
+        return new String();
+    }
+
+    @PostMapping("/visibility/{id}/{visibility}") 
+    public ResponseEntity<Void> changeVisibility(@PathVariable int id, @PathVariable String visibility){
+        //TODO implement this
+        return ResponseEntity.noContent().build();
+
     }
 }

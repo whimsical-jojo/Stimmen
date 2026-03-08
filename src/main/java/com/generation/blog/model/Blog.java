@@ -1,4 +1,4 @@
-package com.generation.blog.entities;
+package com.generation.blog.model;
 
 import java.util.List;
 
@@ -9,6 +9,7 @@ import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
+import jakarta.persistence.ManyToMany;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.OneToMany;
 import lombok.Data;
@@ -27,9 +28,13 @@ public class Blog
     private String description;
 
     @ManyToOne
-    @JoinColumn(name="user_id")
-    private WebUser author;
+    @JoinColumn(name="owner_id")
+    private WebUser owner;
 
+    @ManyToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    private List<WebUser> collaborators;
+
+    //All the posts with different collaborators
     @OneToMany(mappedBy="blog", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     public List<BlogPost> posts;
 

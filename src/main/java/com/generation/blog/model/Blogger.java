@@ -1,4 +1,4 @@
-package com.generation.blog.entities;
+package com.generation.blog.model;
 
 
 import jakarta.persistence.Entity;

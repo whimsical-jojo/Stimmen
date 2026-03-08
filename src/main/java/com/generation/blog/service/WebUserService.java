@@ -6,8 +6,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.generation.blog.dto.WebUserDTO;
-import com.generation.blog.entities.WebUser;
 import com.generation.blog.mapper.WebUserMapper;
+import com.generation.blog.model.WebUser;
 import com.generation.blog.repository.WebUserRepository;
 
 import jakarta.persistence.EntityNotFoundException;

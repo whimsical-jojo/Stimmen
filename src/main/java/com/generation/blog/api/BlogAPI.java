@@ -92,4 +92,27 @@ public class BlogAPI
     public List<BlogDTO> findByTitleContaining(@RequestParam String title) {
         return service.findByTitleContaining(title);
     }
+
+    /**
+     * Find an author's blogs
+     * @param userId
+     * @return
+     */
+    @GetMapping("/{id}/blogs")
+    public String findBlogsByAuthor(@RequestParam String param){
+        //TODO implement this
+        return new String();
+
+    }
+
+    /**
+     * Add a collaborator to a blog with this Id
+     * @param blogId
+     * @param userId
+     * @return
+     */
+    public ResponseEntity<Object> addCollaborator(@PathVariable int blogId, @PathVariable int userId){
+        //TODO implement this
+        return ResponseEntity.noContent().build();
+    }
 }

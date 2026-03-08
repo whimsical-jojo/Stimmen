@@ -14,7 +14,7 @@ public class BlogDTO
     private String title;
     private String description;
 
-    private int authorId;
-
-    public List<BlogPostDTO> posts;
+    private int ownerId;
+    //List of collaborators?
+    //List of tags?
 }

@@ -5,7 +5,7 @@ import java.util.List;
 import org.mapstruct.Mapper;
 
 import com.generation.blog.dto.AdminDTO;
-import com.generation.blog.entities.Admin;
+import com.generation.blog.model.Admin;
 
 @Mapper(componentModel="spring")
 public interface AdminMapper

@@ -5,7 +5,7 @@ import java.util.List;
 import org.mapstruct.Mapper;
 
 import com.generation.blog.dto.BloggerDTO;
-import com.generation.blog.entities.Blogger;
+import com.generation.blog.model.Blogger;
 
 @Mapper(componentModel="spring")
 public interface BloggerMapper

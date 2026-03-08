@@ -9,6 +9,7 @@ import lombok.Setter;
 @Setter
 public class AdminDTO extends WebUserDTO
 {
-	LocalDate lastPasswordChange;
+	//This doesn't actually need to be visible
+	//LocalDate lastPasswordChange;
 	
 }

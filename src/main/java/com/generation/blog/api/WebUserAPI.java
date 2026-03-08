@@ -38,8 +38,7 @@ public class WebUserAPI {
         return service.findByUsernameContaining(username);
     }
 
-    //TODO add find posts/ blogs by author
-
+    
 }
 
 

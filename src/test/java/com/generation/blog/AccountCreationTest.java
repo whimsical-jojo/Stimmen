@@ -31,7 +31,6 @@ class AccountCreationTest
 		admin.setLastName("Waandrade");
 		admin.setFirstName("Wajojo");
 		admin.setRole("Admin");
-		admin.setLastPasswordChange(LocalDate.now());
 		
 		admin = (AdminDTO) service.save(admin);
 		System.out.println(admin.getPassword());

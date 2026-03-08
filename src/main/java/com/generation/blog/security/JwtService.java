@@ -1,6 +1,5 @@
 package com.generation.blog.security;
 
-import com.generation.blog.entities.WebUser;
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
@@ -8,6 +7,8 @@ import io.jsonwebtoken.io.Decoders;
 import io.jsonwebtoken.security.Keys;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Service;
+
+import com.generation.blog.model.WebUser;
 
 import java.security.Key;
 import java.util.Date;

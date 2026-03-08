@@ -1,4 +1,4 @@
-package com.generation.blog.entities;
+package com.generation.blog.model;
 
 import java.time.LocalDateTime;
 
@@ -36,6 +36,10 @@ public class BlogPost {
     @ManyToOne
     @JoinColumn(name="blog_id")
     Blog blog;
+
+    @ManyToOne
+    @JoinColumn(name="author_id")
+    WebUser author;
     
     //TODO add tags and comments
 }
