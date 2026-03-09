@@ -1,5 +1,7 @@
 package com.generation.blog.service;
 
+import java.time.LocalDate;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -7,6 +9,7 @@ import com.generation.blog.dto.LoginDTO;
 import com.generation.blog.dto.TokenDTO;
 import com.generation.blog.dto.WebUserDTO;
 import com.generation.blog.mapper.WebUserMapper;
+import com.generation.blog.model.Admin;
 import com.generation.blog.model.WebUser;
 import com.generation.blog.repository.WebUserRepository;
 import com.generation.blog.security.JwtService;
@@ -58,13 +61,38 @@ public class AccountManagementService {
         userRepository.deleteById(id);
     }
 
-    public WebUserDTO save(@Valid WebUserDTO userDTO) {
-        //Doesn't change the password if when updating it wasn't changed
-        if (userDTO.getPassword() != null) {
-            userDTO.setPassword(passwordHasher.toHash(userDTO.getPassword()));
-        }
+
+    /**
+     * Creates a new User from a DTO
+     * @param userDTO
+     * @return
+     */
+    public WebUserDTO create(@Valid WebUserDTO userDTO) {
+        
         WebUser user = userMapper.toEntity(userDTO);
+        if (user instanceof Admin) {
+            ((Admin)user).setLastPasswordChange(LocalDate.now());
+        }
         user = userRepository.save(user);
         return userMapper.toDTO(user);
+    }
+
+    /**
+     * Updates an existing User from a DTO
+     * @param userDTO
+     * @return
+     */
+    public WebUserDTO update(WebUserDTO userDTO) {
+        WebUser user = userRepository.findById(userDTO.getId())
+            .orElseThrow(() -> new EntityNotFoundException("User not found"));
+        if (userDTO.getPassword() != null) {
+            userDTO.setPassword(passwordHasher.toHash(userDTO.getPassword()));
+            if (user instanceof Admin) {
+                ((Admin)user).setLastPasswordChange(LocalDate.now());
+            }
+        }
+        userMapper.updateFromDTO(userDTO, user);
+        user = userRepository.save(user);
+        return userMapper.toDTO(user); 
     }
 }

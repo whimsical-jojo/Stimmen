@@ -46,4 +46,14 @@ public class WebUserService
         return userMapper.toDTOs(userRepository.findByUsernameContaining(username));
     }
 
+    /**
+     * Looks up bloggers by their nickname
+     * @param nickname
+     * @return
+     */
+    public List<WebUserDTO> findByNickname(String nickname) {
+        // TODO Auto-generated method stub
+        throw new UnsupportedOperationException("Unimplemented method 'findByNickname'");
+    }
+
 }

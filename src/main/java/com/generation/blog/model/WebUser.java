@@ -14,7 +14,10 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.Inheritance;
 import jakarta.persistence.InheritanceType;
+import jakarta.persistence.JoinTable;
+import jakarta.persistence.ManyToMany;
 import jakarta.persistence.OneToMany;
+import jakarta.persistence.JoinColumn;
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Size;
@@ -25,7 +28,6 @@ import lombok.NoArgsConstructor;
 /**
  * Named WebUser instead of User to avoid DB reserved word fuckery
  * TODO add followed users/ blogs, favourited posts/ comments
- * TODO add user status: BANNED, ACTIVE, SUSPENDED idk
  */
 @Data
 @NoArgsConstructor
@@ -57,14 +59,19 @@ public class WebUser
     List<Blog> ownedBlogs;
 
 	//If a collaborator deletes their account, the blog doesn't get deleted.
-	@OneToMany(mappedBy="collaborator",
-	 cascade = {
+	//Maybe I should use cascadeType ALL and only set orphan removal to false?
+	@ManyToMany(cascade = {
                 CascadeType.DETACH,
                 CascadeType.MERGE,
                 CascadeType.REFRESH,
                 CascadeType.PERSIST
         },
 		fetch = FetchType.LAZY)
+	@JoinTable (
+		name = "collaborator_blog",
+		joinColumns = {@JoinColumn(name="collaborator_id")},
+		inverseJoinColumns = {@JoinColumn(name="blog_id")}
+	)
 	List<Blog> collaboratedBlogs;
 	
 	@NotBlank

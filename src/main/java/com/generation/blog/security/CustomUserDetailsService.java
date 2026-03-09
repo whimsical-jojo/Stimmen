@@ -7,7 +7,7 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 
-import com.generation.blog.entities.WebUser;
+import com.generation.blog.model.WebUser;
 import com.generation.blog.repository.WebUserRepository;
 
 import jakarta.persistence.EntityNotFoundException;

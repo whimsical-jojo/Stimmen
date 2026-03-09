@@ -2,8 +2,11 @@ package com.generation.blog.mapper;
 
 import java.util.List;
 
+import org.mapstruct.BeanMapping;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
+import org.mapstruct.MappingTarget;
+import org.mapstruct.NullValuePropertyMappingStrategy;
 import org.mapstruct.SubclassMapping;
 
 import com.generation.blog.dto.AdminDTO;
@@ -16,6 +19,7 @@ import com.generation.blog.model.WebUser;
 @Mapper(componentModel="spring")
 public interface WebUserMapper
 {
+	
 	@SubclassMapping(source = Admin.class, target = AdminDTO.class)
 	@SubclassMapping(source = Blogger.class, target = BloggerDTO.class)
 	@Mapping(target = "password", ignore = true)
@@ -26,4 +30,7 @@ public interface WebUserMapper
 	@SubclassMapping(source = AdminDTO.class, target = Admin.class)
 	WebUser toEntity (WebUserDTO dto);
 	List<WebUser> toEntities (List<WebUserDTO> dtos);
+
+	@BeanMapping(nullValuePropertyMappingStrategy = NullValuePropertyMappingStrategy.IGNORE)
+	void updateFromDTO(WebUserDTO dto, @MappingTarget WebUser user);
 }

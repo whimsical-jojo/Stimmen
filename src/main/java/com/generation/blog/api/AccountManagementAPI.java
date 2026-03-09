@@ -34,10 +34,10 @@ public class AccountManagementAPI
         return service.login(loginDTO);
     }
 
-    @PostMapping
-    public ResponseEntity<Object> save(@RequestBody WebUserDTO dto) {
+    @PostMapping("/register")
+    public ResponseEntity<Object> create(@RequestBody WebUserDTO dto) {
         try {
-            dto = (WebUserDTO) service.save(dto);
+            dto = (WebUserDTO) service.create(dto);
             return ResponseEntity.status(201).body(dto);
         } catch (ConstraintViolationException e) {
             return ResponseEntity.status(400).body(e.getMessage());
@@ -48,7 +48,7 @@ public class AccountManagementAPI
     public ResponseEntity<Object> update(@PathVariable int id, @RequestBody WebUserDTO dto) {
         try {
             dto.setId(id);
-            dto = (WebUserDTO) service.save(dto);
+            dto = (WebUserDTO) service.update(dto);
             return ResponseEntity.ok(dto);
         } catch (ConstraintViolationException e) {
             return ResponseEntity.status(400).body(e.getMessage());

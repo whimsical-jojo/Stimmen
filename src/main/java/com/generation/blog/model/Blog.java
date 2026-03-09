@@ -31,7 +31,8 @@ public class Blog
     @JoinColumn(name="owner_id")
     private WebUser owner;
 
-    @ManyToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    //TODO test that deleting a blog doesn't delete the user
+    @ManyToMany(mappedBy = "collaboratedBlogs", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     private List<WebUser> collaborators;
 
     //All the posts with different collaborators

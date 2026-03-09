@@ -6,8 +6,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.generation.blog.dto.BlogPostDTO;
-import com.generation.blog.entities.BlogPost;
 import com.generation.blog.mapper.BlogPostMapper;
+import com.generation.blog.model.BlogPost;
 import com.generation.blog.repository.BlogPostRepository;
 
 import jakarta.persistence.EntityNotFoundException;

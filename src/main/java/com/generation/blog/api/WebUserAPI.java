@@ -27,18 +27,35 @@ public class WebUserAPI {
     @Autowired
     private WebUserService service;
 
+    /**
+     * Find a specific user by their id
+     * @param id
+     * @return
+     */
     @GetMapping("/{id}")
     public WebUserDTO findById(@PathVariable int id) {
         return service.findById(id);
     }
 
-    
-    @GetMapping
+    /**
+     * Search for a user by their username
+     * @param username
+     * @return
+     */
+    @GetMapping("/searchByusername")
     public List<WebUserDTO> findByUsernameContaining(@RequestParam String username) {
         return service.findByUsernameContaining(username);
     }
 
-    
+    /**
+     * Search bloggers by their nickname
+     * @param nickname
+     * @return
+     */
+    @GetMapping("/searchBynickname")
+    public List<WebUserDTO> findByNickname(@RequestParam String nickname) {
+        return service.findByNickname(nickname);
+    }
 }
 
 
