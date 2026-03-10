@@ -37,7 +37,7 @@ public class Blog
 
     //All the posts with different collaborators
     @OneToMany(mappedBy="blog", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
-    public List<BlogPost> posts;
+    private List<BlogPost> posts;
 
     //TODO Add tags
 }

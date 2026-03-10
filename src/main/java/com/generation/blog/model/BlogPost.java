@@ -5,6 +5,7 @@ import java.time.LocalDateTime;
 import jakarta.persistence.Entity;
 import jakarta.persistence.EnumType;
 import jakarta.persistence.Enumerated;
+import jakarta.persistence.FetchType;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
@@ -31,13 +32,13 @@ public class BlogPost {
     private LocalDateTime publishedOn;
     
     @Enumerated(EnumType.STRING)
-    private PostVisibility visibility;
+    private PostVisibility visibility = PostVisibility.PUBLIC;
     
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name="blog_id")
     Blog blog;
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name="author_id")
     WebUser author;
     
