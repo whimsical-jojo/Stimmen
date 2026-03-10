@@ -37,7 +37,7 @@ public class AccountManagementAPI
     @PostMapping("/register")
     public ResponseEntity<Object> create(@RequestBody WebUserDTO dto) {
         try {
-            dto = (WebUserDTO) service.create(dto);
+            dto = service.create(dto);
             return ResponseEntity.status(201).body(dto);
         } catch (ConstraintViolationException e) {
             return ResponseEntity.status(400).body(e.getMessage());

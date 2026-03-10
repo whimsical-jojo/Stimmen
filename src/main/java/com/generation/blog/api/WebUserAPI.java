@@ -20,7 +20,7 @@ import com.generation.blog.dto.WebUserDTO;
 import com.generation.blog.service.WebUserService;
 
 @RestController
-@RequestMapping("/users")
+@RequestMapping("/api/users")
 @CrossOrigin(origins = "http://localhost:4200")
 public class WebUserAPI {
 

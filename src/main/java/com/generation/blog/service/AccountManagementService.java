@@ -70,9 +70,14 @@ public class AccountManagementService {
     public WebUserDTO create(@Valid WebUserDTO userDTO) {
         
         WebUser user = userMapper.toEntity(userDTO);
+        //Kind of a crappy way to deal with it but I want to have something at least somewhat functional soon
         if (user instanceof Admin) {
             ((Admin)user).setLastPasswordChange(LocalDate.now());
+            user.setRole("ADMIN");
+        } else {
+            user.setRole("BLOGGER");
         }
+        user.setPassword(passwordHasher.toHash(user.getPassword()));
         user = userRepository.save(user);
         return userMapper.toDTO(user);
     }

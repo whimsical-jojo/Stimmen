@@ -7,5 +7,5 @@ import lombok.Setter;
 @Setter
 public class BloggerDTO extends WebUserDTO
 {
-	private String nickName;
+	private String nickname;
 }

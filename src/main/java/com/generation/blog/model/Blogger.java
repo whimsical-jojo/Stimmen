@@ -11,7 +11,7 @@ import lombok.Data;
 @Entity
 public class Blogger extends WebUser {
 
-    private String nickName;
+    private String nickname;
 
     public Blogger () {
     	setRole("Blogger");

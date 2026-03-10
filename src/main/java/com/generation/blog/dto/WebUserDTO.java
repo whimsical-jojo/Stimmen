@@ -3,9 +3,22 @@ package com.generation.blog.dto;
 import java.time.LocalDate;
 import java.util.List;
 
+import com.fasterxml.jackson.annotation.JsonSubTypes;
+import com.fasterxml.jackson.annotation.JsonTypeInfo;
+
 import lombok.Getter;
 import lombok.Setter;
 
+
+@JsonTypeInfo(
+    use = JsonTypeInfo.Id.NAME,
+    include = JsonTypeInfo.As.PROPERTY,
+    property = "type"
+)
+@JsonSubTypes({
+    @JsonSubTypes.Type(value = BloggerDTO.class, name = "blogger"),
+    @JsonSubTypes.Type(value = AdminDTO.class, name = "admin")
+})
 @Getter
 @Setter
 public class WebUserDTO

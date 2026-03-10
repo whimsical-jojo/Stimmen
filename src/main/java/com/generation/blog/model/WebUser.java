@@ -74,8 +74,7 @@ public class WebUser
 	)
 	List<Blog> collaboratedBlogs;
 	
-	@NotBlank
-	private String role; //TODO temporary change later
+	private String role; //TODO temporary change later also fix because it isn't getting assigned
 
 	@Enumerated(EnumType.STRING)
 	private UserStatus status;

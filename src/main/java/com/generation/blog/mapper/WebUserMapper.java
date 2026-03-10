@@ -16,6 +16,7 @@ import com.generation.blog.model.Admin;
 import com.generation.blog.model.Blogger;
 import com.generation.blog.model.WebUser;
 
+
 @Mapper(componentModel="spring")
 public interface WebUserMapper
 {

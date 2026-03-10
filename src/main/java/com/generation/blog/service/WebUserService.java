@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 import com.generation.blog.dto.WebUserDTO;
 import com.generation.blog.mapper.WebUserMapper;
 import com.generation.blog.model.WebUser;
+import com.generation.blog.repository.BloggerRepository;
 import com.generation.blog.repository.WebUserRepository;
 
 import jakarta.persistence.EntityNotFoundException;
@@ -23,6 +24,9 @@ public class WebUserService
 	
 	@Autowired
 	WebUserMapper userMapper;
+
+    @Autowired
+    BloggerRepository bloggerRepository;
 	
 
 	public List<WebUserDTO> findAll() {
@@ -52,8 +56,7 @@ public class WebUserService
      * @return
      */
     public List<WebUserDTO> findByNickname(String nickname) {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'findByNickname'");
+        return userMapper.toDTOs(bloggerRepository.findByNicknameContaining(nickname));
     }
 
 }
