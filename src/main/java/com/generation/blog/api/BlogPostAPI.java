@@ -1,10 +1,12 @@
 package com.generation.blog.api;
 
+import java.time.format.DateTimeParseException;
 import java.util.List;
 
 import org.hibernate.exception.ConstraintViolationException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -17,6 +19,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.generation.blog.dto.BlogPostDTO;
+import com.generation.blog.model.BlogPost;
 import com.generation.blog.service.BlogPostService;
 
 @RestController
@@ -33,9 +36,10 @@ public class BlogPostAPI
      * @return
      */
 	@PostMapping
-    public ResponseEntity<Object> save(@RequestBody BlogPostDTO dto) {
+    //Add check that user is the owner or a collaborator @PreAuthorize etc
+    public ResponseEntity<Object> create(@RequestBody BlogPostDTO dto) {
         try {
-            dto = service.save(dto);
+            dto = service.create(dto);
             return ResponseEntity.status(201).body(dto);
         } catch (ConstraintViolationException e) {
             return ResponseEntity.status(400).body(e.getMessage());
@@ -52,7 +56,7 @@ public class BlogPostAPI
     public ResponseEntity<Object> update(@PathVariable int id, @RequestBody BlogPostDTO dto) {
         try {
             dto.setId(id);
-            dto = service.save(dto);
+            dto = service.update(dto);
             return ResponseEntity.ok(dto);
         } catch (ConstraintViolationException e) {
             return ResponseEntity.status(400).body(e.getMessage());
@@ -91,5 +95,18 @@ public class BlogPostAPI
         //TODO implement this
         return ResponseEntity.noContent().build();
 
+    }
+
+    @GetMapping("/from")
+    public ResponseEntity<List<BlogPostDTO>> findPostsFromDate(@RequestParam String date) {
+        try {
+            List<BlogPostDTO> posts = service.findPostsFromDate(date);
+            if (posts == null) {
+                return ResponseEntity.notFound().build();
+            }
+            return ResponseEntity.ok(posts);
+        } catch (DateTimeParseException e) {
+            return ResponseEntity.badRequest().body(null);
+        }
     }
 }

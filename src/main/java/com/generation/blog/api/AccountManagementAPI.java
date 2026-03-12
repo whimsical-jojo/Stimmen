@@ -20,6 +20,7 @@ import com.generation.blog.service.AccountManagementService;
 /**
  * AccountManagementAPI so users can manage their own accounts, login, edit, change password, delete account, etc.
  * TODO add security stuff?
+ * To the Jwt service I should add an extractId, maybe?
  */
 @RestController
 @RequestMapping("/api/account")

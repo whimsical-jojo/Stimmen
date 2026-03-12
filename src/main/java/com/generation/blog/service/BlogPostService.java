@@ -1,5 +1,7 @@
 package com.generation.blog.service;
 
+import java.time.LocalDate;
+import java.time.format.DateTimeParseException;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -40,8 +42,8 @@ public class BlogPostService
         return mapper.toDTO(blogPost);
     }
 
-    public BlogPostDTO save(@Valid BlogPostDTO blogPostDTO) {
-        //TODO Maybe it's better to have a separate method for posting, and this one can also serve to save sketches.
+    //TODO add custom security check to make sure the user is either a collaborator or the owner of the blog
+    public BlogPostDTO create(@Valid BlogPostDTO blogPostDTO) {
         BlogPost blogPost = mapper.toEntity(blogPostDTO);
         if (blogPost.getPublishedOn() == null) {
             blogPost.setPublishedOn(java.time.LocalDateTime.now());
@@ -55,6 +57,12 @@ public class BlogPostService
         return mapper.toDTO(blogPost);
     }
 
+    //TODO add a custom security evaluator that checks that the user actually owns this
+    public BlogPostDTO update (@Valid BlogPostDTO blogPostDTO) {
+        //Check that the blog post dto corresponds to the persisted entity
+        return blogPostDTO;
+    }
+
     public void deleteById(Integer id) {
         repository.deleteById(id);
     }
@@ -63,4 +71,11 @@ public class BlogPostService
         // TODO Auto-generated method stub
         throw new UnsupportedOperationException("Unimplemented method 'findByTitleContaining'");
     }
+
+    public List<BlogPostDTO> findPostsFromDate(String date) throws DateTimeParseException {
+        LocalDate oldestDate = LocalDate.parse(date);
+        return mapper.toDTOs(repository.findPostsFromDate(oldestDate));
+    }
+
+    //TODO find by tags
 }

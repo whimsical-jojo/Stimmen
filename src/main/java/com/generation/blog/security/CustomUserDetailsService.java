@@ -1,7 +1,10 @@
 package com.generation.blog.security;
 
 
+import java.util.Collections;
+
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
@@ -24,10 +27,12 @@ public class CustomUserDetailsService implements UserDetailsService {
     	WebUser user = userRepository.findByUsername(username)
                 .orElseThrow(() -> new EntityNotFoundException("User not found"));
         
-        return org.springframework.security.core.userdetails.User.builder()
+        //This should work and give me the user
+        return CustomUserDetails.builder()
+                .userId(user.getId())
                 .username(user.getUsername())
                 .password(user.getPassword())
-                .roles(user.getRole().toString()) // Mappa il ruolo (es. ADMIN, USER)
-                .build();
+                .authorities(Collections.singleton(new SimpleGrantedAuthority("ROLE_" + user.getRole())))
+                .build(); // Mappa il ruolo (es. ADMIN, USER)
     }
 }

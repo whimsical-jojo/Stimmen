@@ -118,7 +118,7 @@ class AccountCreationTest {
 
 		List<BlogPostDTO> posts = makeBlogPosts(user.getId(), blog.getId());
 
-		posts.stream().forEach(postService::save);
+		posts.stream().forEach(postService::create);
 
 		//Reload first user and blog
 		user = userRepo.findById(user.getId()).get();
@@ -155,6 +155,7 @@ class AccountCreationTest {
 
 		user = userRepo.findById(user.getId()).get();
 		Blog blog = blogRepo.findById(post.getBlog().getId()).get();
+		
 
 		//Okay I am getting persistence context fuckery here, so maybe it is better to just go for e2e testing and fuck it.
 		//user.getPosts().stream().map(BlogPost::getTitle).forEach(System.out::println);
