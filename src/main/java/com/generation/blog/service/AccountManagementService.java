@@ -100,4 +100,14 @@ public class AccountManagementService {
         user = userRepository.save(user);
         return userMapper.toDTO(user); 
     }
+
+    /**
+     * From the token returns the currently logged in user
+     * @param token
+     * @return
+     */
+    public WebUserDTO getCurrentUser(String username) {
+        return userMapper.toDTO(
+                userRepository.findByUsername(username).get());
+    }
 }

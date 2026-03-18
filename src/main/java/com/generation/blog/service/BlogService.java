@@ -46,4 +46,8 @@ public class BlogService
     public List<BlogDTO> findByTitleContaining(String title) {
         return mapper.toDTOs(repository.findByTitleContaining(title));
     }
+
+    public List<BlogDTO> findBlogsByOwnerId(int id) {
+        return mapper.toDTOs(repository.findByOwnerId(id));
+    }
 }

@@ -98,11 +98,10 @@ public class BlogAPI
      * @param userId
      * @return
      */
-    @GetMapping("/{id}/blogs")
-    public String findBlogsByAuthor(@RequestParam String param){
-        //TODO implement this
-        return new String();
-
+    @GetMapping("/author/{id}")
+    public ResponseEntity<List<BlogDTO>> findBlogsByOwnerId(@PathVariable int id){
+        List<BlogDTO> blogs = service.findBlogsByOwnerId(id);
+        return ResponseEntity.ok(blogs);
     }
 
     /**

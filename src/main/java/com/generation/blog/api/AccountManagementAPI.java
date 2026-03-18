@@ -3,8 +3,10 @@ package com.generation.blog.api;
 import org.hibernate.exception.ConstraintViolationException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.Authentication;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
@@ -61,4 +63,14 @@ public class AccountManagementAPI
         service.deleteById(id);
         return ResponseEntity.noContent().build();
     }
+
+    @GetMapping("/current-user")
+    public ResponseEntity<WebUserDTO> getCurrentUser(Authentication authentication) {
+        WebUserDTO currentUser = service.getCurrentUser(authentication.getName());
+        if (currentUser == null) {
+            return ResponseEntity.notFound().build();
+        }
+        return ResponseEntity.status(200).body(currentUser);
+    }
+
 }
