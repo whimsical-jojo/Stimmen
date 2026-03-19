@@ -184,7 +184,7 @@ class AccountCreationTest {
 		BlogDTO dto = new BlogDTO();
 		dto.setTitle("CLICK HERE!!!11!!!!");
 		dto.setDescription("I have something original to say: Lorem ipsum.");
-		dto.setOwnerId(id);
+		//dto.setOwnerId(id);
 		return dto;
 	}
 

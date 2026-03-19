@@ -12,11 +12,11 @@ import com.generation.blog.model.WebUser;
 @Mapper(componentModel="spring")
 public interface BlogMapper
 {
-	@Mapping(source = "owner.id", target = "ownerId")
+	//@Mapping(source = "owner.id", target = "ownerId")
 	BlogDTO toDTO (Blog blog);
 	List<BlogDTO> toDTOs (List<Blog> blogs);
 	
-	@Mapping(source = "ownerId", target = "owner.id")
+	//@Mapping(source = "ownerId", target = "owner.id")
 	Blog toEntity (BlogDTO dto);
 	List<Blog> toEntities (List<BlogDTO> dtos);
 

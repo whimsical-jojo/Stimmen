@@ -20,7 +20,7 @@ import com.generation.blog.model.WebUser;
 @Mapper(componentModel="spring")
 public interface WebUserMapper
 {
-	
+	//For some reason this doesnt work and the front end is still getting a plain WebUserDTO.
 	@SubclassMapping(source = Admin.class, target = AdminDTO.class)
 	@SubclassMapping(source = Blogger.class, target = BloggerDTO.class)
 	@Mapping(target = "password", ignore = true)
