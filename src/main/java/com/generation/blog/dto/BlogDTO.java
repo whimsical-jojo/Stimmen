@@ -13,6 +13,7 @@ public class BlogDTO
 	private int id;
     private String title;
     private String description;
+    //image
 
     private WebUserDTO owner;
     //List of collaborators?

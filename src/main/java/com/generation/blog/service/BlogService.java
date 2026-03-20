@@ -3,6 +3,7 @@ package com.generation.blog.service;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Service;
 
 import com.generation.blog.dto.BlogDTO;
@@ -32,8 +33,8 @@ public class BlogService
         return mapper.toDTO(blog);
     }
 
-    public BlogDTO save(@Valid BlogDTO blogDTO) {
-        
+    @PreAuthorize("authentication.name==#blogDTO.owner.username")
+    public BlogDTO create(@Valid BlogDTO blogDTO) {
         Blog blog = mapper.toEntity(blogDTO);
         blog = repository.save(blog);
         return mapper.toDTO(blog);
@@ -49,5 +50,12 @@ public class BlogService
 
     public List<BlogDTO> findBlogsByOwnerId(int id) {
         return mapper.toDTOs(repository.findByOwnerId(id));
+    }
+
+    public BlogDTO update(BlogDTO dto) {
+        Blog blog = repository.findById(dto.getId()).orElseThrow(() -> new EntityNotFoundException("Blog not found."));
+        mapper.updateFromDTO(dto, blog);
+        blog = repository.save(blog);
+        return mapper.toDTO(blog);
     }
 }

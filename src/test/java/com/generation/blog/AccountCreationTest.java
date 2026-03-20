@@ -100,7 +100,7 @@ class AccountCreationTest {
 		WebUser user = userRepo.findByUsernameContaining("Wajojo").get(0);
 
 		BlogDTO blogDTO = makeBlogDTO(user.getId());
-		blogDTO = blogService.save(blogDTO);
+		blogDTO = blogService.create(blogDTO);
 
 		Blog blog = blogRepo.findById(blogDTO.getId()).get();
 		assert (blog.getTitle().equals(blogDTO.getTitle()));

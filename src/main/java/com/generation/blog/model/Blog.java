@@ -26,6 +26,7 @@ public class Blog
 	private int id;
     private String title;
     private String description;
+    //TODO add image
 
     @ManyToOne
     @JoinColumn(name="owner_id")

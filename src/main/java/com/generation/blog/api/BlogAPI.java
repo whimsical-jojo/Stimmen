@@ -5,6 +5,7 @@ import java.util.List;
 import org.hibernate.exception.ConstraintViolationException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.Authentication;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -28,7 +29,8 @@ import com.generation.blog.service.BlogService;
 public class BlogAPI
 {
 	@Autowired
-	BlogService service;
+	private BlogService service;
+    
 	
     /**
      * Create a new blog
@@ -36,9 +38,9 @@ public class BlogAPI
      * @return
      */
 	@PostMapping
-    public ResponseEntity<Object> save(@RequestBody BlogDTO dto) {
+    public ResponseEntity<Object> create(@RequestBody BlogDTO dto) {
         try {
-            dto = service.save(dto);
+            dto = service.create(dto);
             return ResponseEntity.status(201).body(dto);
         } catch (ConstraintViolationException e) {
             return ResponseEntity.status(400).body(e.getMessage());
@@ -55,7 +57,7 @@ public class BlogAPI
     public ResponseEntity<Object> update(@PathVariable int id, @RequestBody BlogDTO dto) {
         try {
             dto.setId(id);
-            dto = service.save(dto);
+            dto = service.update(dto);
             return ResponseEntity.ok(dto);
         } catch (ConstraintViolationException e) {
             return ResponseEntity.status(400).body(e.getMessage());
