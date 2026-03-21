@@ -90,6 +90,19 @@ public class BlogPostAPI
         return new String();
     }
 
+    @GetMapping("/blog/{blogId}")
+    public ResponseEntity<List<BlogPostDTO>> findPostsByBlog(@PathVariable int blogId) {
+        try {
+            List<BlogPostDTO> posts = service.findPostsByBlog(blogId);
+            if (posts == null)
+                return ResponseEntity.notFound().header("message",
+                 "No posts found for blog with id " + blogId).build();
+            return ResponseEntity.ok(posts);
+        } catch (Exception e) {
+            return ResponseEntity.badRequest().build();
+        }
+    }
+
     @PostMapping("/visibility/{id}/{visibility}") 
     public ResponseEntity<Void> changeVisibility(@PathVariable int id, @PathVariable String visibility){
         //TODO implement this

@@ -18,4 +18,6 @@ public interface BlogPostRepository extends JpaRepository<BlogPost, Integer>
     @Query("SELECT p FROM BlogPost p WHERE p.publishedOn >= :oldestDate")
     List<BlogPost> findPostsFromDate(LocalDate oldestDate);
 
+    List<BlogPost> findByBlogId(int blogId);
+
 }

@@ -77,5 +77,14 @@ public class BlogPostService
         return mapper.toDTOs(repository.findPostsFromDate(oldestDate));
     }
 
+    public List<BlogPostDTO> findPostsByBlog(int blogId) {
+        //Honestly I should check whether it returns null or an empty list
+        List<BlogPost> posts = repository.findByBlogId(blogId);
+        if (posts == null) {
+            return null;
+        }
+        return mapper.toDTOs(posts);
+    }
+
     //TODO find by tags
 }
